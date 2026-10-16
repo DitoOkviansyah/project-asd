@@ -132,11 +132,43 @@ public class SinglyLinkedList implements LinkedList{
     @Override
     public boolean remove(Object targetData) {
         // TODO digunakan untuk mencari dan menghapus node dengan data=targetData pada linked list serta mengembalikan nilai True jika berhasil, dan False jika targetData tidak ada di linkedList
+        Node prev = null;
+        Node temp = head;
+        if (isEmpty()) {
+            System.out.println("Linked list kosong");
+        } else {
+            while (temp != null) {
+                if (temp.data.equals(targetData)) {
+                    if (temp == head) {
+                        deleteFirst();
+                        return true;
+                    } else if (temp == tail) {
+                        deleteLast();
+                        return true;
+                    } else {
+                        prev.pointer = temp.pointer;
+                        size--;
+                        return true;
+                    }
+                } else {
+                    prev = temp;
+                    temp = temp.pointer;
+                }
+            }
+        }
         return false;
     }
     @Override
     public Object[] toArray() {
         // TODO digunakan untuk mendapatkan keseluruhan data pada node-node di linked list dalam bentuk array. Data-data pada array disusun secara urut mulai dari head sampai dengan tail.
-        return null;
+        Object[] array = new Object[size];
+
+        Node temp = head;
+
+        for (int i = 0; i < size; i++) {
+            array[i] = temp.data;
+            temp = temp.pointer;
+        }
+        return array;
     }
 }
